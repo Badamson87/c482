@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane fx:controller="View_Controller.ModifyPart" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="347.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label layoutX="50.0" layoutY="37.0" text="Add Part" />
+
+        <fx:define>
+            <ToggleGroup fx:id="source"/>
+        </fx:define>
+        <RadioButton layoutX="149.0" layoutY="37.0" selected="true" toggleGroup="$source" onAction="#inHouseView" mnemonicParsing="false" text="In-House" />
+        <RadioButton layoutX="266.0" layoutY="37.0" toggleGroup="$source" onAction="#outSourceView" mnemonicParsing="false" text="Outsourced" />
+
+        <Label layoutX="73.0" layoutY="70.0" text="ID:" />
+        <Label layoutX="73.0" layoutY="110.0" text="Name:" />
+        <Label layoutX="73.0" layoutY="150.0" prefHeight="17.0" prefWidth="34.0" text="Inv:" />
+        <Label layoutX="73.0" layoutY="190.0" text="Price/Cost:" />
+        <Label layoutX="73.0" layoutY="230.0" prefHeight="17.0" prefWidth="41.0" text="Max:" />
+        <Label layoutX="73.0" layoutY="270.0" fx:id="machineTag" text="Machine ID:" />
+        <Label layoutX="73.0" layoutY="270.0" fx:id="companyNameTag" text="Company Name:" />
+        <Label layoutX="340.0" layoutY="230.0" prefHeight="17.0" prefWidth="34.0" text="Min:" />
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+        <TextField layoutX="175.0" layoutY="68.0" />
+        <TextField layoutX="175.0" layoutY="108.0" />
+        <TextField layoutX="175.0" layoutY="148.0" />
+        <TextField layoutX="175.0" layoutY="188.0" />
+        <TextField layoutX="175.0" layoutY="228.0" />
+        <TextField layoutX="175.0" layoutY="268.0"  fx:id="machineInput"/>
+        <TextField layoutX="175.0" layoutY="268.0"  fx:id="companyNameInput"/>
+        <TextField layoutX="380.0" layoutY="228.0" />
+        <Button layoutX="298.0" layoutY="323.0" mnemonicParsing="false" text="Save" />
+        <Button layoutX="349.0" layoutY="323.0" mnemonicParsing="false" text="Cancel" />
+    </children>
+</Pane>
