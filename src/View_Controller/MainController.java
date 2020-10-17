@@ -1,10 +1,17 @@
 package View_Controller;
 
+import Model.Inventory;
+import Model.Part;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -14,14 +21,26 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
-
+    
     @FXML
     Pane productsPane;
     @FXML
     Pane partsPane;
+    @FXML
+    private TableColumn<Part, Integer> partId;
+    @FXML
+    private TableColumn<Part, String> partName;
+    @FXML
+    private TableColumn<Part, Double> partPrice;
+    @FXML
+    private TableColumn<Part, Integer> partStock;
+    @FXML
+    private TableView<Part> partsTable;
+
+
 
     /**
-     * sets the products pane to visible
+     * sets up the products pane
      * hides the parts pane
      */
     public void displayProducts() {
@@ -30,10 +49,16 @@ public class MainController implements Initializable {
     }
 
     /**
-     * sets Parts pane to visible
+     * sets up Parts pane
      * hides the products pane
      */
     public void displayParts() {
+        partId.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getId()).asObject());
+        partStock.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getStock()).asObject());
+        partName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
+        partPrice.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getPrice()).asObject());
+        // get parts here?
+        partsTable.setItems(Inventory.getAllParts());
         productsPane.setVisible(false);
         partsPane.setVisible(true);
     }

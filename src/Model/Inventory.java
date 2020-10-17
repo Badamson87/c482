@@ -1,28 +1,32 @@
 package Model;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class Inventory {
-    private ObservableList<Part> allParts;
-    private ObservableList<Product> allProducts;
+    private static ObservableList<Part> allParts = FXCollections.observableArrayList();
+    private static ObservableList<Product> allProducts = FXCollections.observableArrayList();
 
     // things below this line are for compile while writing and need to be removed
     private Part dummyPart;
     private Product dummyProduct;
 
+    public Inventory() {
+    }
+
 
     /**
      * @param newPart added to observable part list
      */
-    public void addPart(Part newPart) {
-        // todo
+    public static void addPart(Part newPart) {
+        allParts.add(newPart);
     }
 
     /**
      * @param newProduct added to observable product list
      */
     public void addProduct(Product newProduct) {
-        // todo
+        allProducts.add(newProduct);
     }
 
     /**
@@ -103,15 +107,11 @@ public class Inventory {
      *
      * @return ObservableList of parts
      */
-    public ObservableList<Part> getAllParts() {
-        return allParts;
-    }
+    public static ObservableList<Part> getAllParts() { return allParts; }
 
     /**
      *
      * @return ObservableList of products
      */
-    public ObservableList<Product> getAllProducts() {
-        return allProducts;
-    }
+    public ObservableList<Product> getAllProducts() { return allProducts; }
 }

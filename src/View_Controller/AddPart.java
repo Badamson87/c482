@@ -1,5 +1,7 @@
 package View_Controller;
 
+import Model.InHouse;
+import Model.Inventory;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -14,9 +16,23 @@ public class AddPart implements Initializable {
     @FXML
     Label companyNameTag;
     @FXML
-    TextField machineInput;
+    private TextField machineInput;
     @FXML
-    TextField companyNameInput;
+    private TextField companyNameInput;
+    @FXML
+    private TextField idInput;
+    @FXML
+    private TextField nameInput;
+    @FXML
+    private TextField invInput;
+    @FXML
+    private TextField priceInput;
+    @FXML
+    private TextField maxInput;
+    @FXML
+    private TextField minInput;
+    private Integer partCounter = 1;
+
 
 
     /**
@@ -39,6 +55,18 @@ public class AddPart implements Initializable {
         machineInput.setVisible(false);
         companyNameInput.setVisible(true);
         companyNameTag.setVisible(true);
+    }
+
+    public void createNewPart(){
+        String name = nameInput.getText();
+        InHouse inhouse = new InHouse(this.partCounter,
+                name,
+                1, 2, 1, 1, 1);
+
+
+
+        Inventory.addPart(inhouse);
+        this.partCounter++;
     }
 
     /**
