@@ -2,6 +2,7 @@ package View_Controller;
 
 import Model.Inventory;
 import Model.Part;
+import Model.Product;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -36,14 +37,32 @@ public class MainController implements Initializable {
     private TableColumn<Part, Integer> partStock;
     @FXML
     private TableView<Part> partsTable;
+    @FXML
+    private TableView<Product> productsTable;
+    @FXML
+    private TableColumn<Product, Integer> productId;
+    @FXML
+    private TableColumn<Product, String> productName;
+    @FXML
+    private TableColumn<Product, Double> productPrice;
+    @FXML
+    private TableColumn<Product, Integer> productStock;
+    private static Stage addPartStage;
+
 
 
 
     /**
      * sets up the products pane
      * hides the parts pane
+     * sets the cell data for product table can calls to get all products
      */
     public void displayProducts() {
+        productId.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getId()).asObject());
+        productStock.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getStock()).asObject());
+        productName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
+        productPrice.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getPrice()).asObject());
+        productsTable.setItems(Inventory.getAllProducts());
         productsPane.setVisible(true);
         partsPane.setVisible(false);
     }
@@ -51,13 +70,13 @@ public class MainController implements Initializable {
     /**
      * sets up Parts pane
      * hides the products pane
+     * sets the cell data for parts table and calls to get all parts
      */
     public void displayParts() {
         partId.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getId()).asObject());
         partStock.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getStock()).asObject());
         partName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
         partPrice.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getPrice()).asObject());
-        // get parts here?
         partsTable.setItems(Inventory.getAllParts());
         productsPane.setVisible(false);
         partsPane.setVisible(true);
@@ -67,11 +86,19 @@ public class MainController implements Initializable {
      * launches the add part pane
      */
     public void displayAddPart() throws IOException {
-        Stage window = new Stage();
-        window.initModality(Modality.APPLICATION_MODAL);
+        Stage addPartStage = new Stage();
+        this.addPartStage = addPartStage;
+        addPartStage.initModality(Modality.APPLICATION_MODAL);
         Parent addScene = FXMLLoader.load(getClass().getResource("addPart.fxml"));
-        window.setScene(new Scene(addScene, 600, 500));
-        window.show();
+        addPartStage.setScene(new Scene(addScene, 600, 500));
+        addPartStage.show();
+    }
+
+    /**
+     * Closes the add part stage
+     */
+    public static void closeAddPartStage(){
+        addPartStage.close();
     }
 
     /**
@@ -112,6 +139,19 @@ public class MainController implements Initializable {
      */
     public void exit() { View_Controller.Main.closeProgram(); }
 
+    /**
+     * deletes selected part
+     */
+    public void deletePart(){
+        // todo
+    }
+
+    /**
+     * deletes selected product
+     */
+    public void deleteProduct(){
+        // todo
+    }
     /**
      * calls displayParts view on initialization of main screen
      */

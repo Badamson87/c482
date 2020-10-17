@@ -25,7 +25,7 @@
               </columns>
             </TableView>
             <TextField layoutX="392.0" layoutY="10.0" />
-            <Button layoutX="483.0" layoutY="242.0" mnemonicParsing="false" text="Delete" />
+            <Button layoutX="483.0" layoutY="242.0" mnemonicParsing="false" text="Delete" onAction="#deletePart"/>
             <Button layoutX="423.0" layoutY="242.0" onAction="#displayModifyPart" mnemonicParsing="false" text="Modify" />
             <Button layoutX="379.0" layoutY="242.0" onAction="#displayAddPart" mnemonicParsing="false" text="Add" />
          </children>
@@ -34,16 +34,16 @@
        <Pane fx:id="productsPane" layoutX="28.0" layoutY="43.0" prefHeight="281.0" prefWidth="549.0">
            <children>
                <Label layoutX="21.0" layoutY="14.0" text="Products" />
-               <TableView layoutY="40.0" prefHeight="194.0" prefWidth="549.0">
+               <TableView fx:id="productsTable" layoutY="40.0" prefHeight="194.0" prefWidth="549.0">
                    <columns>
-                       <TableColumn prefWidth="106.0" text="Product ID" />
-                       <TableColumn prefWidth="111.0" text="Product Name" />
-                       <TableColumn prefWidth="153.0" text="Inventory Level" />
-                       <TableColumn minWidth="0.0" prefWidth="178.0" text="Price/ Cost per Unit" />
+                       <TableColumn fx:id="productId" prefWidth="106.0" text="Product ID" />
+                       <TableColumn fx:id="productName" prefWidth="111.0" text="Product Name" />
+                       <TableColumn fx:id="productStock" prefWidth="153.0" text="Inventory Level" />
+                       <TableColumn fx:id="productPrice" minWidth="0.0" prefWidth="178.0" text="Price/ Cost per Unit" />
                    </columns>
                </TableView>
                <TextField layoutX="392.0" layoutY="10.0" />
-               <Button layoutX="483.0" layoutY="242.0" mnemonicParsing="false" text="Delete" />
+               <Button layoutX="483.0" layoutY="242.0" mnemonicParsing="false" text="Delete" onAction="#deleteProduct"/>
                <Button layoutX="423.0" layoutY="242.0" mnemonicParsing="false" onAction="#displayModifyProduct" text="Modify" />
                <Button layoutX="379.0" layoutY="242.0" mnemonicParsing="false" onAction="#displayAddProduct" text="Add" />
            </children>

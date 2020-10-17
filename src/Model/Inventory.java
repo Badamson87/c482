@@ -113,5 +113,5 @@ public class Inventory {
      *
      * @return ObservableList of products
      */
-    public ObservableList<Product> getAllProducts() { return allProducts; }
+    public static ObservableList<Product> getAllProducts() { return allProducts; }
 }

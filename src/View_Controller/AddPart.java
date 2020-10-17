@@ -2,6 +2,7 @@ package View_Controller;
 
 import Model.InHouse;
 import Model.Inventory;
+import Model.Outsourced;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -20,8 +21,6 @@ public class AddPart implements Initializable {
     @FXML
     private TextField companyNameInput;
     @FXML
-    private TextField idInput;
-    @FXML
     private TextField nameInput;
     @FXML
     private TextField invInput;
@@ -32,6 +31,7 @@ public class AddPart implements Initializable {
     @FXML
     private TextField minInput;
     private Integer partCounter = 1;
+    private Boolean inHouse;
 
 
 
@@ -44,6 +44,7 @@ public class AddPart implements Initializable {
         machineInput.setVisible(true);
         companyNameInput.setVisible(false);
         companyNameTag.setVisible(false);
+        this.inHouse = true;
     }
 
     /**
@@ -55,18 +56,49 @@ public class AddPart implements Initializable {
         machineInput.setVisible(false);
         companyNameInput.setVisible(true);
         companyNameTag.setVisible(true);
+        this.inHouse = false;
     }
 
-    public void createNewPart(){
+    /**
+     * determines if the new product is inHouse or outSourced
+     */
+    public void save(){
         String name = nameInput.getText();
-        InHouse inhouse = new InHouse(this.partCounter,
-                name,
-                1, 2, 1, 1, 1);
+        Integer stock = Integer.parseInt(invInput.getText());
+        Double price = Double.parseDouble(priceInput.getText());
+        Integer max = Integer.parseInt(maxInput.getText());
+        Integer min = Integer.parseInt(minInput.getText());
+        if (this.inHouse) {
+            createNewInHousePart(name, stock, price, max, min);
+        } else {
+            createNewOutsourcePart(name, stock, price, max, min);
+        }
+    }
 
-
-
+    /**
+     * Creates a new InHouse part
+     */
+    public void createNewInHousePart(String name, Integer stock, Double price, Integer max, Integer min){
+        Integer machineId = Integer.parseInt(machineInput.getText());
+        InHouse inhouse = new InHouse(this.partCounter, name, price, stock, min, max, machineId);
         Inventory.addPart(inhouse);
         this.partCounter++;
+        close();
+    }
+
+    /**
+     * creates a new out sourced part
+     */
+    public void createNewOutsourcePart(String name, Integer stock, Double price, Integer max, Integer min){
+        String companyName = machineInput.getText();
+        Outsourced outsourced = new Outsourced(this.partCounter, name, price, stock, min, max, companyName);
+        Inventory.addPart(outsourced);
+        this.partCounter++;
+        close();
+    }
+
+    public void close(){
+        View_Controller.MainController.closeAddPartStage();
     }
 
     /**
