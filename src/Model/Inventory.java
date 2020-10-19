@@ -88,8 +88,8 @@ public class Inventory {
      * @param selectedPart
      * @return successful deletion of part
      */
-    public boolean deletePart(Part selectedPart) {
-        // todo
+    public static boolean deletePart(Part selectedPart) {
+        allParts.remove(selectedPart);
         return true;
     }
 
@@ -99,7 +99,7 @@ public class Inventory {
      * @return successful deletion of product
      */
     public boolean deleteProduct(Product selectedProduct) {
-        // todo
+        allProducts.remove(selectedProduct);
         return true;
     }
 

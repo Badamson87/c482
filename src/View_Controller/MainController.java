@@ -143,7 +143,14 @@ public class MainController implements Initializable {
      * deletes selected part
      */
     public void deletePart(){
-        // todo
+        boolean confirm = ConfirmationModal.display("Parts", "Delete selected part?");
+        if (confirm){
+            // todo this is where we would verify delete product
+            Part selectedPart = partsTable.getSelectionModel().getSelectedItem();
+            Inventory.deletePart(selectedPart);
+        }
+
+        System.out.println(confirm);
     }
 
     /**
@@ -152,6 +159,7 @@ public class MainController implements Initializable {
     public void deleteProduct(){
         // todo
     }
+
     /**
      * calls displayParts view on initialization of main screen
      */
