@@ -49,6 +49,11 @@ public class MainController implements Initializable {
     private TableColumn<Product, Integer> productStock;
     private static Stage addPartStage;
 
+    private static int ModifyPartIndex;
+    private static boolean ModifyPartInHouse;
+
+    private static Part selectedPart;
+
 
 
 
@@ -105,10 +110,11 @@ public class MainController implements Initializable {
      * launches the modify part pane
      */
     public void displayModifyPart() throws IOException {
+        this.selectedPart = partsTable.getSelectionModel().getSelectedItem();
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
-        Parent addScene = FXMLLoader.load(getClass().getResource("modifyPart.fxml"));
-        window.setScene(new Scene(addScene, 600, 500));
+        Parent modifyScene = FXMLLoader.load(getClass().getResource("modifyPart.fxml"));
+        window.setScene(new Scene(modifyScene, 600, 500));
         window.show();
     }
 
@@ -158,6 +164,14 @@ public class MainController implements Initializable {
      */
     public void deleteProduct(){
         // todo
+    }
+
+    /**
+     *
+     * @return the selected part
+     */
+    public static Part getSelectedPart() {
+       return selectedPart;
     }
 
     /**
