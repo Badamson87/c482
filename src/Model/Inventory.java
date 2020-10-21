@@ -2,6 +2,7 @@ package Model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 
 public class Inventory {
     private static ObservableList<Part> allParts = FXCollections.observableArrayList();
@@ -33,9 +34,17 @@ public class Inventory {
      * @param partID
      * @return part by ID
      */
-    public Part lookUpPart(int partID) {
-        // todo
-        return this.dummyPart;
+    public static ObservableList<Part> lookUpPart(int partID) {
+        ObservableList<Part> filteredParts = FXCollections.observableArrayList();
+        for (Part part : allParts)
+        {
+            String id = String.valueOf(part.getId());
+            String searchId = String.valueOf(partID);
+            if (id.contains(searchId)) {
+                filteredParts.add(part);
+            }
+        }
+        return filteredParts;
     }
 
     /**
@@ -51,9 +60,16 @@ public class Inventory {
      * @param partName
      * @return part by part name
      */
-    public Part lookUpPart(String partName) {
-        // todo
-        return this.dummyPart;
+    public static ObservableList<Part> lookUpPart(String partName) {
+        ObservableList<Part> filteredParts = FXCollections.observableArrayList();
+        for (Part part : allParts)
+        {
+            String name = part.getName().toLowerCase();
+            if (name.contains(partName.toLowerCase())) {
+                filteredParts.add(part);
+            }
+        }
+        return filteredParts;
     }
 
     /**
@@ -70,8 +86,18 @@ public class Inventory {
      * @param index Index of selected part
      * @param selectedPart part to be updated
      */
-    public void updatePart(int index, Part selectedPart){
+    //public void updatePart(int index, Part selectedPart){
         // todo
+    //}
+
+    /**
+     *
+     * @param oldPart un-updated part to be removed
+     * @param updatedPart updated part to be added
+     */
+    public static void updatePart(Part updatedPart, Part oldPart){
+        addPart(updatedPart);
+        deletePart(oldPart);
     }
 
     /**

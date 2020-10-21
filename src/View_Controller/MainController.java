@@ -6,6 +6,7 @@ import Model.Product;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -13,6 +14,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -47,6 +49,11 @@ public class MainController implements Initializable {
     private TableColumn<Product, Double> productPrice;
     @FXML
     private TableColumn<Product, Integer> productStock;
+    @FXML
+    private TextField partSearch;
+    @FXML
+    private TextField productSearch;
+
     private static Stage addPartStage;
     private static Stage modifyPartStage;
 
@@ -182,6 +189,45 @@ public class MainController implements Initializable {
      */
     public static Part getSelectedPart() {
        return selectedPart;
+    }
+
+    /**
+     * Search's parts and updates viewed list;
+     */
+    public void searchParts() {
+        ObservableList filteredList;
+        if(isNumeric(partSearch.getText())){
+            filteredList = Inventory.lookUpPart(Integer.parseInt(partSearch.getText()));
+        } else {
+            filteredList = Inventory.lookUpPart(partSearch.getText());
+        }
+        partsTable.setItems(filteredList);
+    }
+
+    /**
+     *
+     * @param str is checked to be Numeric
+     * @return returns is numeric
+     */
+    private boolean isNumeric(String str) {
+        // null or empty
+        if (str == null || str.length() == 0) {
+            return false;
+        }
+        for (char c : str.toCharArray()) {
+            if (!Character.isDigit(c)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    /**
+     * Search's products and updates viewed list;
+     */
+    public void searchProducts() {
+        System.out.println(productSearch.getText());
     }
 
     /**
