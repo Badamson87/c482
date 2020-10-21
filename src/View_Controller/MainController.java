@@ -48,11 +48,10 @@ public class MainController implements Initializable {
     @FXML
     private TableColumn<Product, Integer> productStock;
     private static Stage addPartStage;
-
-    private static int ModifyPartIndex;
-    private static boolean ModifyPartInHouse;
+    private static Stage modifyPartStage;
 
     private static Part selectedPart;
+    public static Integer partCounter = 1;
 
 
 
@@ -107,15 +106,27 @@ public class MainController implements Initializable {
     }
 
     /**
-     * launches the modify part pane
+     * Closes the modify part stage
+     */
+    public static void closeModifyPartStage(){
+        modifyPartStage.close();
+    }
+
+    /**
+     * Checks that a selected part exists then launches the modify part pane
      */
     public void displayModifyPart() throws IOException {
         this.selectedPart = partsTable.getSelectionModel().getSelectedItem();
-        Stage window = new Stage();
-        window.initModality(Modality.APPLICATION_MODAL);
-        Parent modifyScene = FXMLLoader.load(getClass().getResource("modifyPart.fxml"));
-        window.setScene(new Scene(modifyScene, 600, 500));
-        window.show();
+        if(selectedPart == null){
+            messageModal.display("No part Selected", "Please select a part to modify");
+        } else {
+            Stage window = new Stage();
+            window.initModality(Modality.APPLICATION_MODAL);
+            Parent modifyScene = FXMLLoader.load(getClass().getResource("modifyPart.fxml"));
+            window.setScene(new Scene(modifyScene, 600, 500));
+            modifyPartStage = window;
+            window.show();
+        }
     }
 
     /**
@@ -155,7 +166,6 @@ public class MainController implements Initializable {
             Part selectedPart = partsTable.getSelectionModel().getSelectedItem();
             Inventory.deletePart(selectedPart);
         }
-
         System.out.println(confirm);
     }
 

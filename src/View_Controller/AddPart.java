@@ -30,7 +30,6 @@ public class AddPart implements Initializable {
     private TextField maxInput;
     @FXML
     private TextField minInput;
-    private Integer partCounter = 1;
     private Boolean inHouse;
 
 
@@ -80,9 +79,9 @@ public class AddPart implements Initializable {
      */
     public void createNewInHousePart(String name, Integer stock, Double price, Integer max, Integer min){
         Integer machineId = Integer.parseInt(machineInput.getText());
-        InHouse inhouse = new InHouse(this.partCounter, name, price, stock, min, max, machineId);
+        InHouse inhouse = new InHouse(MainController.partCounter, name, price, stock, min, max, machineId);
         Inventory.addPart(inhouse);
-        this.partCounter++;
+        MainController.partCounter++;
         close();
     }
 
@@ -90,10 +89,10 @@ public class AddPart implements Initializable {
      * creates a new out sourced part
      */
     public void createNewOutsourcePart(String name, Integer stock, Double price, Integer max, Integer min){
-        String companyName = machineInput.getText();
-        Outsourced outsourced = new Outsourced(this.partCounter, name, price, stock, min, max, companyName);
+        String companyName = companyNameInput.getText();
+        Outsourced outsourced = new Outsourced(MainController.partCounter, name, price, stock, min, max, companyName);
         Inventory.addPart(outsourced);
-        this.partCounter++;
+        MainController.partCounter++;
         close();
     }
 
