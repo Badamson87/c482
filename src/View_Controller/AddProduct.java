@@ -2,9 +2,12 @@ package View_Controller;
 
 import Model.Inventory;
 import Model.Part;
+import Model.Product;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
@@ -19,6 +22,8 @@ public class AddProduct implements Initializable {
     TextField invInput;
     @FXML
     TextField priceInput;
+    @FXML
+    TextField nameInput;
     @FXML
     TextField maxInput;
     @FXML
@@ -45,25 +50,48 @@ public class AddProduct implements Initializable {
     private TableColumn<Part, Integer> prodInvCol;
     @FXML
     private TableColumn<Part, Double> prodPriceCol;
+    private ObservableList<Part> selectedParts = FXCollections.observableArrayList();
 
     public void searchParts(){
-    // todo
+        ObservableList filteredList;
+        if(isNumeric(partSearch.getText())){
+            filteredList = Inventory.lookUpPart(Integer.parseInt(partSearch.getText()));
+        } else {
+            filteredList = Inventory.lookUpPart(partSearch.getText());
+        }
+        partsTable.setItems(filteredList);
     }
 
     public void addSelectedPart(){
-        //todo
+        this.selectedParts.add(partsTable.getSelectionModel().getSelectedItem());
     }
 
     public void removeSelectedPart(){
-        //todo
+        this.selectedParts.remove(partsTable.getSelectionModel().getSelectedItem());
     }
 
     public void save(){
-        //todo
+        // todo check that  min is less than max
+        String name = nameInput.getText();
+        Integer stock = Integer.parseInt(invInput.getText());
+        Double price = Double.parseDouble(priceInput.getText());
+        Integer max = Integer.parseInt(maxInput.getText());
+        Integer min = Integer.parseInt(minInput.getText());
+        Product newProduct = new Product(MainController.productCounter, name, price, stock, min, max);
+        Inventory.addProduct(newProduct);
+        cancel();
+        addAssociatedParts(newProduct);
+        MainController.productCounter++;
     }
 
     public void cancel(){
-        //todo
+        MainController.closeAddProductStage();
+    }
+
+    private void addAssociatedParts(Product product) {
+        for (Part part : this.selectedParts) {
+            product.addAssociatedPart(part);
+;        }
     }
 
     private void getAllParts() {
@@ -75,11 +103,34 @@ public class AddProduct implements Initializable {
     }
 
     /**
+     *
+     * @param str is checked to be Numeric
+     * @return returns is numeric
+     */
+    public boolean isNumeric(String str) {
+        // null or empty
+        if (str == null || str.length() == 0) {
+            return false;
+        }
+        for (char c : str.toCharArray()) {
+            if (!Character.isDigit(c)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
      * Initialize add products by calling get all parts;
      */    @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         getAllParts();
-    }
+        prodIdCol.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getId()).asObject());
+        prodInvCol.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getStock()).asObject());
+        prodNameCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
+        prodPriceCol.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getPrice()).asObject());
+        productsTable.setItems(this.selectedParts);
+     }
 }
 
 

@@ -1,8 +1,9 @@
 package Model;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class Product {
-    private ObservableList<Part> associatedParts;
+    private static ObservableList<Part> associatedParts = FXCollections.observableArrayList();
     private int id;
     private String name;
     private double price;
@@ -106,7 +107,7 @@ public class Product {
      * @param part added as associated Product
      */
     public void addAssociatedPart(Part part){
-        //todo
+        associatedParts.add(part);
     }
 
     /**
@@ -121,7 +122,7 @@ public class Product {
     /**
       * @return observable list of associated parts
      */
-    public ObservableList<Part> getAllAssociatedParts(){
-        return this.associatedParts;
+    public static ObservableList<Part> getAllAssociatedParts(){
+        return associatedParts;
     }
 }

@@ -56,9 +56,11 @@ public class MainController implements Initializable {
 
     private static Stage addPartStage;
     private static Stage modifyPartStage;
+    private static Stage addProductStage;
 
     private static Part selectedPart;
     public static Integer partCounter = 1;
+    public static Integer productCounter = 1;
 
 
 
@@ -120,6 +122,13 @@ public class MainController implements Initializable {
     }
 
     /**
+     * Closes the modify part stage
+     */
+    public static void closeAddProductStage(){
+        addProductStage.close();
+    }
+
+    /**
      * Checks that a selected part exists then launches the modify part pane
      */
     public void displayModifyPart() throws IOException {
@@ -144,6 +153,7 @@ public class MainController implements Initializable {
         window.initModality(Modality.APPLICATION_MODAL);
         Parent addScene = FXMLLoader.load(getClass().getResource("addProduct.fxml"));
         window.setScene(new Scene(addScene, 800, 500));
+        addProductStage = window;
         window.show();
     }
 
@@ -173,14 +183,20 @@ public class MainController implements Initializable {
             Part selectedPart = partsTable.getSelectionModel().getSelectedItem();
             Inventory.deletePart(selectedPart);
         }
-        System.out.println(confirm);
+        partsTable.setItems(Inventory.getAllParts());
     }
 
     /**
      * deletes selected product
      */
     public void deleteProduct(){
-        // todo
+        boolean confirm = ConfirmationModal.display("Product", "Delete selected product?");
+        if (confirm){
+            // todo this is where we would verify delete product
+            Product selectedProduct = productsTable.getSelectionModel().getSelectedItem();
+            Inventory.deleteProduct(selectedProduct);
+        }
+        productsTable.setItems(Inventory.getAllProducts());
     }
 
     /**
@@ -209,7 +225,7 @@ public class MainController implements Initializable {
      * @param str is checked to be Numeric
      * @return returns is numeric
      */
-    private boolean isNumeric(String str) {
+    public boolean isNumeric(String str) {
         // null or empty
         if (str == null || str.length() == 0) {
             return false;
@@ -227,7 +243,13 @@ public class MainController implements Initializable {
      * Search's products and updates viewed list;
      */
     public void searchProducts() {
-        System.out.println(productSearch.getText());
+        ObservableList filteredList;
+        if(isNumeric(productSearch.getText())){
+            filteredList = Inventory.lookUpProduct(Integer.parseInt(productSearch.getText()));
+        } else {
+            filteredList = Inventory.lookUpProduct(productSearch.getText());
+        }
+        productsTable.setItems(filteredList);
     }
 
     /**

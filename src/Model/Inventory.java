@@ -2,14 +2,12 @@ package Model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 
 public class Inventory {
     private static ObservableList<Part> allParts = FXCollections.observableArrayList();
     private static ObservableList<Product> allProducts = FXCollections.observableArrayList();
 
     // things below this line are for compile while writing and need to be removed
-    private Part dummyPart;
     private Product dummyProduct;
 
     public Inventory() {
@@ -26,7 +24,7 @@ public class Inventory {
     /**
      * @param newProduct added to observable product list
      */
-    public void addProduct(Product newProduct) {
+    public static void addProduct(Product newProduct) {
         allProducts.add(newProduct);
     }
 
@@ -45,15 +43,6 @@ public class Inventory {
             }
         }
         return filteredParts;
-    }
-
-    /**
-     * @param productID
-     * @return Product by ID
-     */
-    public Product lookUpProduct(int productID) {
-        // todo
-        return this.dummyProduct;
     }
 
     /**
@@ -76,19 +65,34 @@ public class Inventory {
      * @param productName
      * @return Product by Name
      */
-    public Product lookUpProduct(String productName) {
-        // todo
-        return this.dummyProduct;
+    public static ObservableList<Product> lookUpProduct(String productName) {
+        ObservableList<Product> filteredProducts = FXCollections.observableArrayList();
+        for (Product product : allProducts)
+        {
+            String name = product.getName().toLowerCase();
+            if (name.contains(productName.toLowerCase())) {
+                filteredProducts.add(product);
+            }
+        }
+        return filteredProducts;
     }
 
     /**
-     *
-     * @param index Index of selected part
-     * @param selectedPart part to be updated
+     * @param ProductId
+     * @return Product filtered list by ID
      */
-    //public void updatePart(int index, Part selectedPart){
-        // todo
-    //}
+    public static ObservableList<Product> lookUpProduct(Integer ProductId) {
+        ObservableList<Product> filteredProducts = FXCollections.observableArrayList();
+        for (Product product : allProducts)
+        {
+            String id = String.valueOf(product.getId());
+            String searchId = String.valueOf(ProductId);
+            if (id.contains(searchId)) {
+                filteredProducts.add(product);
+            }
+        }
+        return filteredProducts;
+    }
 
     /**
      *
@@ -124,7 +128,7 @@ public class Inventory {
      * @param selectedProduct
      * @return successful deletion of product
      */
-    public boolean deleteProduct(Product selectedProduct) {
+    public static boolean deleteProduct(Product selectedProduct) {
         allProducts.remove(selectedProduct);
         return true;
     }
