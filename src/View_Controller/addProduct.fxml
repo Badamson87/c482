@@ -39,6 +39,6 @@
       <Button layoutX="573.0" layoutY="184.0" mnemonicParsing="false" text="Add" onAction="#addSelectedPart" />
       <Button layoutX="572.0" layoutY="375.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="188.0" text="Remove Associated Part" onAction="#removeSelectedPart"/>
       <Button layoutX="572.0" layoutY="409.0" mnemonicParsing="false" text="Save" onAction="#save"/>
-      <Button layoutX="629.0" layoutY="409.0" mnemonicParsing="false" text="Cancel" onAction="#cancel"/>
+      <Button layoutX="629.0" layoutY="409.0" mnemonicParsing="false" text="Cancel" onAction="#close"/>
    </children>
 </Pane>

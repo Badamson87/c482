@@ -115,8 +115,7 @@ public class Product {
      * @return successful deletion of associated part
      */
     public boolean deleteAssociatedPart(Part selectedAssociatedPart) {
-        //todo
-        return true;
+       return associatedParts.remove(selectedAssociatedPart);
     }
 
     /**

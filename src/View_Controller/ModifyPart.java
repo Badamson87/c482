@@ -113,8 +113,7 @@ public class ModifyPart implements Initializable {
     }
 
     /**
-     * Checks that a selected part exists
-     * Calls to set part in case of one existing
+     * Calls to set part
      */
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Part selectedPart = MainController.getSelectedPart();

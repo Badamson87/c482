@@ -13,14 +13,14 @@
         <Label layoutX="19.0" layoutY="138.0" text="Price:" />
         <Label layoutX="19.0" layoutY="167.0" text="Max:" />
         <Label layoutX="152.0" layoutY="167.0" prefHeight="17.0" prefWidth="44.0" text="Min:" />
-        <TextField layoutX="64.0" layoutY="42.0" fx:id="idInput" disable="true" text="Auto-Gen -Disabled"/>
+        <TextField layoutX="64.0" layoutY="42.0" fx:id="idInput" disable="true" />
         <TextField layoutX="587.0" layoutY="10.0" prefHeight="25.0" prefWidth="188.0" promptText="Search by ID or Name" fx:id="partSearch" onKeyReleased="#searchParts" />
         <TextField layoutX="64.0" layoutY="71.0"  fx:id="nameInput"/>
         <TextField layoutX="64.0" layoutY="101.0" prefHeight="25.0" prefWidth="78.0" fx:id="invInput"/>
         <TextField layoutX="64.0" layoutY="134.0" prefHeight="25.0" prefWidth="78.0" fx:id="priceInput"/>
         <TextField layoutX="64.0" layoutY="163.0" prefHeight="25.0" prefWidth="78.0" fx:id="maxInput"/>
         <TextField layoutX="196.0" layoutY="163.0" prefHeight="25.0" prefWidth="78.0" fx:id="minInput" />
-        <TableView layoutX="306.0" layoutY="47.0" prefHeight="129.0" prefWidth="469.0">
+        <TableView fx:id="partsTable" layoutX="306.0" layoutY="47.0" prefHeight="129.0" prefWidth="469.0">
             <columns>
                 <TableColumn prefWidth="85.0"  text="Part ID" fx:id="partIdCol"/>
                 <TableColumn prefWidth="95.0" text="Part Name" fx:id="partNameCol"/>
@@ -28,7 +28,7 @@
                 <TableColumn prefWidth="143.0" text="Price/ Cost per Unit" fx:id="partPriceCol"/>
             </columns>
         </TableView>
-        <TableView layoutX="306.0" layoutY="237.0" prefHeight="129.0" prefWidth="469.0">
+        <TableView fx:id="productsTable" layoutX="306.0" layoutY="237.0" prefHeight="129.0" prefWidth="469.0">
             <columns>
                 <TableColumn prefWidth="85.0"  text="Part ID" fx:id="prodIdCol"/>
                 <TableColumn prefWidth="95.0" text="Part Name" fx:id="prodNameCol"/>
@@ -36,9 +36,9 @@
                 <TableColumn prefWidth="143.0" text="Price/Cost per Unit" fx:id="prodPriceCol"/>
             </columns>
         </TableView>
-        <Button layoutX="573.0" layoutY="184.0" mnemonicParsing="false" text="Add" />
-        <Button layoutX="572.0" layoutY="375.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="188.0" text="Remove Associated Part" />
-        <Button layoutX="572.0" layoutY="409.0" mnemonicParsing="false" text="Save" />
-        <Button layoutX="629.0" layoutY="409.0" mnemonicParsing="false" text="Cancel" />
+        <Button layoutX="573.0" layoutY="184.0" mnemonicParsing="false" text="Add" onAction="#addSelectedPart" />
+        <Button layoutX="572.0" layoutY="375.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="188.0" text="Remove Associated Part" onAction="#removeSelectedPart"/>
+        <Button layoutX="572.0" layoutY="409.0" mnemonicParsing="false" text="Save" onAction="#save"/>
+        <Button layoutX="629.0" layoutY="409.0" mnemonicParsing="false" text="Cancel" onAction="#close"/>
     </children>
 </Pane>

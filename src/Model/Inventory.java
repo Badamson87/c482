@@ -7,9 +7,6 @@ public class Inventory {
     private static ObservableList<Part> allParts = FXCollections.observableArrayList();
     private static ObservableList<Product> allProducts = FXCollections.observableArrayList();
 
-    // things below this line are for compile while writing and need to be removed
-    private Product dummyProduct;
-
     public Inventory() {
     }
 
@@ -106,11 +103,12 @@ public class Inventory {
 
     /**
      *
-     * @param index Index of selected product
-     * @param selectedProduct product to be updated
+     * @param oldProduct un-updated part to be removed
+     * @param newProduct updated part to be added
      */
-    public void updateProduct(int index, Product selectedProduct){
-        // todo
+    public static void updateProduct(Product newProduct, Product oldProduct){
+        deleteProduct(oldProduct);
+        addProduct(newProduct);
     }
 
     /**

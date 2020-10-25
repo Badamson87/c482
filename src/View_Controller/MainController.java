@@ -1,5 +1,4 @@
 package View_Controller;
-
 import Model.Inventory;
 import Model.Part;
 import Model.Product;
@@ -18,7 +17,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -57,13 +55,12 @@ public class MainController implements Initializable {
     private static Stage addPartStage;
     private static Stage modifyPartStage;
     private static Stage addProductStage;
+    private static Stage modifyProductStage;
 
     private static Part selectedPart;
+    private static Product selectedProduct;
     public static Integer partCounter = 1;
     public static Integer productCounter = 1;
-
-
-
 
     /**
      * sets up the products pane
@@ -129,21 +126,12 @@ public class MainController implements Initializable {
     }
 
     /**
-     * Checks that a selected part exists then launches the modify part pane
+     * Closes the modify part stage
      */
-    public void displayModifyPart() throws IOException {
-        this.selectedPart = partsTable.getSelectionModel().getSelectedItem();
-        if(selectedPart == null){
-            messageModal.display("No part Selected", "Please select a part to modify");
-        } else {
-            Stage window = new Stage();
-            window.initModality(Modality.APPLICATION_MODAL);
-            Parent modifyScene = FXMLLoader.load(getClass().getResource("modifyPart.fxml"));
-            window.setScene(new Scene(modifyScene, 600, 500));
-            modifyPartStage = window;
-            window.show();
-        }
+    public static void closeModifyProductStage(){
+        modifyProductStage.close();
     }
+
 
     /**
      * launches the add product pane
@@ -161,11 +149,34 @@ public class MainController implements Initializable {
      * launches the modify product pane
      */
     public void displayModifyProduct() throws IOException {
-        Stage window = new Stage();
-        window.initModality(Modality.APPLICATION_MODAL);
-        Parent addScene = FXMLLoader.load(getClass().getResource("modifyProduct.fxml"));
-        window.setScene(new Scene(addScene, 800, 500));
-        window.show();
+        this.selectedProduct = productsTable.getSelectionModel().getSelectedItem();
+        if (selectedProduct == null){
+            messageModal.display("No product Selected", "Please select a product to modify");
+        } else {
+            Stage window = new Stage();
+            window.initModality(Modality.APPLICATION_MODAL);
+            Parent addScene = FXMLLoader.load(getClass().getResource("modifyProduct.fxml"));
+            window.setScene(new Scene(addScene, 800, 500));
+            modifyProductStage = window;
+            window.show();
+        }
+    }
+
+    /**
+     * Checks that a selected part exists then launches the modify part pane
+     */
+    public void displayModifyPart() throws IOException {
+        this.selectedPart = partsTable.getSelectionModel().getSelectedItem();
+        if(selectedPart == null){
+            messageModal.display("No part Selected", "Please select a part to modify");
+        } else {
+            Stage window = new Stage();
+            window.initModality(Modality.APPLICATION_MODAL);
+            Parent modifyScene = FXMLLoader.load(getClass().getResource("modifyPart.fxml"));
+            window.setScene(new Scene(modifyScene, 600, 500));
+            modifyPartStage = window;
+            window.show();
+        }
     }
 
     /**
@@ -205,6 +216,13 @@ public class MainController implements Initializable {
      */
     public static Part getSelectedPart() {
        return selectedPart;
+    }
+
+    /**
+     *
+     */
+    public static Product getSelectedProduct() {
+       return selectedProduct;
     }
 
     /**
