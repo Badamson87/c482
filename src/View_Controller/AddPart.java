@@ -59,19 +59,24 @@ public class AddPart implements Initializable {
     }
 
     /**
-     * determines if the new product is inHouse or outSourced
+     * Saves new product after checking that max is greater than min
      */
     public void save(){
-        String name = nameInput.getText();
-        Integer stock = Integer.parseInt(invInput.getText());
-        Double price = Double.parseDouble(priceInput.getText());
-        Integer max = Integer.parseInt(maxInput.getText());
-        Integer min = Integer.parseInt(minInput.getText());
-        if (this.inHouse) {
-            createNewInHousePart(name, stock, price, max, min);
+        if (Integer.parseInt(maxInput.getText()) > Integer.parseInt(minInput.getText())){
+            String name = nameInput.getText();
+            Integer stock = Integer.parseInt(invInput.getText());
+            Double price = Double.parseDouble(priceInput.getText());
+            Integer max = Integer.parseInt(maxInput.getText());
+            Integer min = Integer.parseInt(minInput.getText());
+            if (this.inHouse) {
+                createNewInHousePart(name, stock, price, max, min);
+            } else {
+                createNewOutsourcePart(name, stock, price, max, min);
+            }
         } else {
-            createNewOutsourcePart(name, stock, price, max, min);
+          messageModal.display("Unable to Save", "Max value must be greater than min");
         }
+
     }
 
     /**
@@ -96,6 +101,9 @@ public class AddPart implements Initializable {
         close();
     }
 
+    /**
+     * calls to close the add part stage
+     */
     public void close(){
         View_Controller.MainController.closeAddPartStage();
     }

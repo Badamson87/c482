@@ -77,18 +77,21 @@ public class ModifyProduct implements Initializable {
      * gathers input values and saves the product
      */
     public void save(){
-        // todo check that  min is less than max
         String name = nameInput.getText();
         Integer stock = Integer.parseInt(invInput.getText());
         Double price = Double.parseDouble(priceInput.getText());
         Integer max = Integer.parseInt(maxInput.getText());
         Integer min = Integer.parseInt(minInput.getText());
         Integer id = Integer.parseInt(idInput.getText());
-        Product newProduct = new Product(id, name, price, stock, min, max);
-        Inventory.updateProduct(newProduct, selectedProduct);
-        close();
-        addAssociatedParts(newProduct);
-        MainController.productCounter++;
+        if (max > min){
+            Product newProduct = new Product(id, name, price, stock, min, max);
+            Inventory.updateProduct(newProduct, selectedProduct);
+            close();
+            addAssociatedParts(newProduct);
+            MainController.productCounter++;
+        } else {
+            messageModal.display("Unable to update", "Max value must be greater than min");
+        }
     }
 
     /**

@@ -188,13 +188,16 @@ public class MainController implements Initializable {
      * deletes selected part
      */
     public void deletePart(){
-        boolean confirm = ConfirmationModal.display("Parts", "Delete selected part?");
-        if (confirm){
-            // todo this is where we would verify delete product
-            Part selectedPart = partsTable.getSelectionModel().getSelectedItem();
-            Inventory.deletePart(selectedPart);
+        if (this.checkPartIsUsed(partsTable.getSelectionModel().getSelectedItem())){
+            messageModal.display("Unable to delete part", "Part is used in a product");
+        } else {
+            boolean confirm = ConfirmationModal.display("Parts", "Delete selected part?");
+            if (confirm){
+                Part selectedPart = partsTable.getSelectionModel().getSelectedItem();
+                Inventory.deletePart(selectedPart);
+            }
+            partsTable.setItems(Inventory.getAllParts());
         }
-        partsTable.setItems(Inventory.getAllParts());
     }
 
     /**
@@ -203,7 +206,6 @@ public class MainController implements Initializable {
     public void deleteProduct(){
         boolean confirm = ConfirmationModal.display("Product", "Delete selected product?");
         if (confirm){
-            // todo this is where we would verify delete product
             Product selectedProduct = productsTable.getSelectionModel().getSelectedItem();
             Inventory.deleteProduct(selectedProduct);
         }
@@ -244,7 +246,6 @@ public class MainController implements Initializable {
      * @return returns is numeric
      */
     public boolean isNumeric(String str) {
-        // null or empty
         if (str == null || str.length() == 0) {
             return false;
         }
@@ -256,6 +257,21 @@ public class MainController implements Initializable {
         return true;
     }
 
+    /**
+     *
+     * @param selectedPart is checked to be used in a product
+     * @return boolean true if part is used
+     */
+    private boolean checkPartIsUsed(Part selectedPart) {
+        boolean retVal = false;
+        Product[] products = Inventory.getAllProducts().toArray(new Product[0]);
+        for (Product product : products) {
+            if (product.getAllAssociatedParts().contains(selectedPart)) {
+                retVal = true;
+            }
+        }
+        return retVal;
+    }
 
     /**
      * Search's products and updates viewed list;

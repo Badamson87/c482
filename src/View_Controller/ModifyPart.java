@@ -86,23 +86,31 @@ public class ModifyPart implements Initializable {
         idInput.setText(Integer.toString(selectedPart.getId()));
     }
 
+    /**
+     * Saves updated product after checking that max is greater than min
+     */
     public void save(){
-        String name = nameInput.getText();
-        Integer stock = Integer.parseInt(invInput.getText());
-        Double price = Double.parseDouble(priceInput.getText());
-        Integer max = Integer.parseInt(maxInput.getText());
-        Integer min = Integer.parseInt(minInput.getText());
-
-        if (inHouseView == true){
-            Integer machineId = Integer.parseInt(machineInput.getText());
-            InHouse update = new InHouse(selectedPart.getId(), name, price, stock, min, max, machineId);
-            Inventory.updatePart(update, selectedPart);
+        if (Integer.parseInt(maxInput.getText()) > Integer.parseInt(minInput.getText())){
+            String name = nameInput.getText();
+            Integer stock = Integer.parseInt(invInput.getText());
+            Double price = Double.parseDouble(priceInput.getText());
+            Integer max = Integer.parseInt(maxInput.getText());
+            Integer min = Integer.parseInt(minInput.getText());
+            if (inHouseView == true){
+                Integer machineId = Integer.parseInt(machineInput.getText());
+                InHouse update = new InHouse(selectedPart.getId(), name, price, stock, min, max, machineId);
+                Inventory.updatePart(update, selectedPart);
+            } else {
+                String companyName = companyNameInput.getText();
+                Outsourced update = new Outsourced(selectedPart.getId(), name, price, stock, min, max, companyName);
+                Inventory.updatePart(update, selectedPart);
+            }
+            close();
         } else {
-            String companyName = companyNameInput.getText();
-            Outsourced update = new Outsourced(selectedPart.getId(), name, price, stock, min, max, companyName);
-            Inventory.updatePart(update, selectedPart);
+            messageModal.display("Unable to update", "Max value must be greater than min");
         }
-        close();
+
+
     }
 
     /**
