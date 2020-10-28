@@ -77,20 +77,85 @@ public class ModifyProduct implements Initializable {
      * gathers input values and saves the product
      */
     public void save(){
-        String name = nameInput.getText();
-        Integer stock = Integer.parseInt(invInput.getText());
-        Double price = Double.parseDouble(priceInput.getText());
-        Integer max = Integer.parseInt(maxInput.getText());
-        Integer min = Integer.parseInt(minInput.getText());
-        Integer id = Integer.parseInt(idInput.getText());
-        if (max > min){
+        String errorMessage = this.validatePart(nameInput.getText(), invInput.getText(), priceInput.getText(), minInput.getText(), maxInput.getText());
+        if (errorMessage.length() > 0){
+            messageModal.display("Unable to save Product", errorMessage);
+        } else {
+            String name = nameInput.getText();
+            Integer stock = Integer.parseInt(invInput.getText());
+            Double price = Double.parseDouble(priceInput.getText());
+            Integer max = Integer.parseInt(maxInput.getText());
+            Integer min = Integer.parseInt(minInput.getText());
+            Integer id = Integer.parseInt(idInput.getText());
             Product newProduct = new Product(id, name, price, stock, min, max);
             Inventory.updateProduct(newProduct, selectedProduct);
             close();
             addAssociatedParts(newProduct);
             MainController.productCounter++;
-        } else {
-            messageModal.display("Unable to update", "Max value must be greater than min");
+        }
+    }
+
+    /**
+     *
+     * @return if part state is valid
+     */
+    private String validatePart(String name, String inv, String price, String min, String max){
+        if (name == null || name.length() == 0){
+            return "Name field can not be empty";
+        }
+        if (inv == null || inv.length() == 0) {
+            return "Inv field can not be empty";
+        }
+        if (price == null || price.length() == 0){
+            return "Price field can not be empty";
+        }
+        if (min == null || min.length() == 0){
+            return "Min field can not be empty";
+        }
+        if (max == null || max.length() == 0) {
+            return "Max field can not be empty";
+        }
+        if (validateIsDouble(price) == false) {
+            return "Price field must be a number";
+        }
+        if (validateIsInt(inv) == false) {
+            return "Inv field must be a number";
+        }
+        if (validateIsInt(min) == false){
+            return "Min field must be a number";
+        }
+        if (validateIsInt(max) == false) {
+            return "Max field must be a number";
+        }
+        if (Integer.parseInt(min) > Integer.parseInt(max) || Integer.parseInt(min) == Integer.parseInt(max)) {
+            return "Min Must be less than Max";
+        }
+        return "";
+    }
+
+    /**
+     *Determine if string can be converted to int
+     */
+    static boolean validateIsInt(String string){
+        try {
+            Integer.parseInt(string);
+            return true;
+        }
+        catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    /**
+     *Determine if string can be converted to Double
+     */
+    static boolean validateIsDouble(String string) {
+        try {
+            Double.parseDouble(string);
+            return true;
+        }
+        catch (NumberFormatException e) {
+            return false;
         }
     }
 
@@ -114,10 +179,12 @@ public class ModifyProduct implements Initializable {
      * searches and populates all parts with and updated filtered list
      */
     public void removeSelectedPart(){
-        Boolean res = this.selectedProduct.deleteAssociatedPart(productsTable.getSelectionModel().getSelectedItem());
-       if (res == false){
-           messageModal.display("Something went wrong", "Unable to remove selected part");
-       }
+        if (ConfirmationModal.display("Remove Part", "Remove selected part from product list?")) {
+            Boolean res = this.selectedProduct.deleteAssociatedPart(productsTable.getSelectionModel().getSelectedItem());
+            if (res == false) {
+                messageModal.display("Something went wrong", "Unable to remove selected part");
+            }
+        }
     }
 
     /**

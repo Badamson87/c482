@@ -270,6 +270,7 @@ public class MainController implements Initializable {
                 retVal = true;
             }
         }
+        System.out.println(retVal);
         return retVal;
     }
 

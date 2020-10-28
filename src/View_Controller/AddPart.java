@@ -62,43 +62,53 @@ public class AddPart implements Initializable {
      * Saves new product after checking that max is greater than min
      */
     public void save(){
-        if (Integer.parseInt(maxInput.getText()) > Integer.parseInt(minInput.getText())){
+        if (this.inHouse) {
+            createNewInHousePart();
+        } else {
+            createNewOutsourcePart();
+            }
+      }
+
+    /**
+     * Creates a new InHouse part
+     */
+    public void createNewInHousePart(){
+        String errorMessage = InHouse.validateInHouse(nameInput.getText(), priceInput.getText(), invInput.getText(), minInput.getText(), maxInput.getText(), machineInput.getText());
+        if (errorMessage.length() > 0){
+            messageModal.display("Unable to save part", errorMessage);
+        } else {
             String name = nameInput.getText();
             Integer stock = Integer.parseInt(invInput.getText());
             Double price = Double.parseDouble(priceInput.getText());
             Integer max = Integer.parseInt(maxInput.getText());
             Integer min = Integer.parseInt(minInput.getText());
-            if (this.inHouse) {
-                createNewInHousePart(name, stock, price, max, min);
-            } else {
-                createNewOutsourcePart(name, stock, price, max, min);
-            }
-        } else {
-          messageModal.display("Unable to Save", "Max value must be greater than min");
+            Integer machineId = Integer.parseInt(machineInput.getText());
+            InHouse inhouse = new InHouse(MainController.partCounter, name, price, stock, min, max, machineId);
+            Inventory.addPart(inhouse);
+            MainController.partCounter++;
+            close();
         }
-
-    }
-
-    /**
-     * Creates a new InHouse part
-     */
-    public void createNewInHousePart(String name, Integer stock, Double price, Integer max, Integer min){
-        Integer machineId = Integer.parseInt(machineInput.getText());
-        InHouse inhouse = new InHouse(MainController.partCounter, name, price, stock, min, max, machineId);
-        Inventory.addPart(inhouse);
-        MainController.partCounter++;
-        close();
     }
 
     /**
      * creates a new out sourced part
      */
-    public void createNewOutsourcePart(String name, Integer stock, Double price, Integer max, Integer min){
-        String companyName = companyNameInput.getText();
-        Outsourced outsourced = new Outsourced(MainController.partCounter, name, price, stock, min, max, companyName);
-        Inventory.addPart(outsourced);
-        MainController.partCounter++;
-        close();
+    public void createNewOutsourcePart(){
+        String errorMessage = Outsourced.validateOutsource(nameInput.getText(), priceInput.getText(), invInput.getText(), minInput.getText(), maxInput.getText(), companyNameInput.getText());
+        if (errorMessage.length() > 0){
+            messageModal.display("Unable to save part", errorMessage);
+        } else {
+            String name = nameInput.getText();
+            Integer stock = Integer.parseInt(invInput.getText());
+            Double price = Double.parseDouble(priceInput.getText());
+            Integer max = Integer.parseInt(maxInput.getText());
+            Integer min = Integer.parseInt(minInput.getText());
+            String companyName = companyNameInput.getText();
+            Outsourced outsourced = new Outsourced(MainController.partCounter, name, price, stock, min, max, companyName);
+            Inventory.addPart(outsourced);
+            MainController.partCounter++;
+            close();
+        }
     }
 
     /**
