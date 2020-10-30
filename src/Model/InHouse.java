@@ -1,8 +1,21 @@
 package Model;
 
+/**
+ * This class extends part to create in House parts
+ */
 public class InHouse extends Part {
     private int machineId;
 
+    /**
+     * Constructor to create a new In house part
+     * @param id part id
+     * @param name Part Name
+     * @param price Part Price
+     * @param stock Part Stock
+     * @param min Part Min value
+     * @param max Part Max value
+     * @param machineId Part Machine id
+     */
     public InHouse(int id, String name, double price, int stock, int min, int max, int machineId) {
         super(id, name, price, stock, min, max);
         this.machineId = machineId;
@@ -26,10 +39,16 @@ public class InHouse extends Part {
 
 
     /**
-     *checks that part is valid and returns Error message in case its not
+     *
+     * @param name is checked as valid
+     * @param price is checked as valid
+     * @param stock is checked as valid
+     * @param min is checked as valid
+     * @param max is checked as valid
+     * @param machineId is checked as valid
+     * @return if part is valid or not
      */
     public static String validateInHouse(String name, String price, String stock, String min, String max, String machineId){
-        System.out.println(name);
         if (name == null || name.length() == 0){
                 return "Name field can not be empty";
             }

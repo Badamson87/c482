@@ -21,6 +21,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * this class controls the main screen and functionality found there.
+ * It is in charge of switching between parts and products, Displaying those items and keeping the updated list.
+ */
 public class MainController implements Initializable {
     
     @FXML
@@ -96,12 +100,16 @@ public class MainController implements Initializable {
      * launches the add part pane
      */
     public void displayAddPart() throws IOException {
-        Stage addPartStage = new Stage();
-        this.addPartStage = addPartStage;
-        addPartStage.initModality(Modality.APPLICATION_MODAL);
-        Parent addScene = FXMLLoader.load(getClass().getResource("addPart.fxml"));
-        addPartStage.setScene(new Scene(addScene, 600, 500));
-        addPartStage.show();
+        try {
+            Stage addPartStage = new Stage();
+            this.addPartStage = addPartStage;
+            addPartStage.initModality(Modality.APPLICATION_MODAL);
+            Parent addScene = FXMLLoader.load(getClass().getResource("addPart.fxml"));
+            addPartStage.setScene(new Scene(addScene, 600, 500));
+            addPartStage.show();
+            } catch (Exception ex) {
+            messageModal.display("Something went wrong", "Unable to display Add part");
+        }
     }
 
     /**
@@ -137,18 +145,24 @@ public class MainController implements Initializable {
      * launches the add product pane
      */
     public void displayAddProduct() throws IOException {
+        try {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         Parent addScene = FXMLLoader.load(getClass().getResource("addProduct.fxml"));
         window.setScene(new Scene(addScene, 800, 500));
         addProductStage = window;
         window.show();
+        } catch (Exception ex) {
+            messageModal.display("Something went wrong", "Unable to display add Product");
+        }
     }
 
     /**
      * launches the modify product pane
      */
     public void displayModifyProduct() throws IOException {
+        try {
+
         this.selectedProduct = productsTable.getSelectionModel().getSelectedItem();
         if (selectedProduct == null){
             messageModal.display("No product Selected", "Please select a product to modify");
@@ -160,12 +174,16 @@ public class MainController implements Initializable {
             modifyProductStage = window;
             window.show();
         }
+        } catch (Exception ex) {
+            messageModal.display("Something went wrong", "Unable to display modify product pane");
+        }
     }
 
     /**
      * Checks that a selected part exists then launches the modify part pane
      */
     public void displayModifyPart() throws IOException {
+        try {
         this.selectedPart = partsTable.getSelectionModel().getSelectedItem();
         if(selectedPart == null){
             messageModal.display("No part Selected", "Please select a part to modify");
@@ -176,6 +194,9 @@ public class MainController implements Initializable {
             window.setScene(new Scene(modifyScene, 600, 500));
             modifyPartStage = window;
             window.show();
+        }
+        } catch (Exception ex) {
+            messageModal.display("Something went wrong", "Unable to display modify part");
         }
     }
 
@@ -221,7 +242,7 @@ public class MainController implements Initializable {
     }
 
     /**
-     *
+     * @return the selected Product
      */
     public static Product getSelectedProduct() {
        return selectedProduct;
@@ -270,7 +291,6 @@ public class MainController implements Initializable {
                 retVal = true;
             }
         }
-        System.out.println(retVal);
         return retVal;
     }
 

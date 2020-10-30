@@ -9,9 +9,19 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * This Confirmation Modal class creates a new modal that displays a question and asks for confirmation on the question.
+ * It returns the answer in the form of a bool
+ */
 public class ConfirmationModal {
     static boolean answer;
 
+    /**
+     *
+     * @param title Displayed as the title of a new modal window
+     * @param message Displayed as the message in a new modal window
+     * @return The confirmation of question asked through the message.
+     */
     public static boolean display(String title, String message){
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);

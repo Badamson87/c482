@@ -2,6 +2,32 @@ package Model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+
+/**
+ * <P><B>
+ *-RunTime Error
+ *
+ *    A run time error that I experienced during this project was when the program would attempt to parse a null number.
+ * This would happen in the case of converting a string to number from and input field such as price when no input had been
+ * given. My solution to the problem was first to build a list of checks for null values or empty strings, And then a validation
+ * function. This function would take in a string and then using a try/catch block attempt to parse the string into an integer.
+ * A boolean would be return from the function IsValidInt labeling it true or false.
+ *
+ * -Extend the program
+ *
+ *  I think a great way to extend the program would be to expand the search criteria to look up outsource company's that you
+ * acquire parts from. This functionality would ideally would provide to the user the name and contact information of the company.
+ * As well as a complete parts list of associated parts. This would make the process of ordering parts easy when your inventory
+ * is low or out of stock. You could also create a warning message that automatically notifies the user when a part stock is low.
+ * This reminder would help prevent wait times and improve production
+ *
+ * </B></P>
+ */
+
+
+/**
+ * this class handles the creation and management of a product
+ */
 public class Product {
     private ObservableList<Part> associatedParts = FXCollections.observableArrayList();
     private int id;
@@ -10,6 +36,16 @@ public class Product {
     private int stock;
     private int min;
     private int max;
+
+    /**
+     * Product constructor
+     * @param id New Product ID
+     * @param name New Product Name
+     * @param price New Product price
+     * @param stock New Product Stock value
+     * @param min new Product Min value
+     * @param max new product max value
+     */
     public Product(int id, String name, double price, int stock, int min, int max) {
         this.id = id;
         this.name = name;

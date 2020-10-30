@@ -11,6 +11,9 @@ import javafx.scene.control.TextField;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * This class helps with the creation of a new part
+ */
 public class AddPart implements Initializable {
     @FXML
     Label machineTag;

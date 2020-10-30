@@ -7,6 +7,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * this Main class is called on application starts. Its job is to create the home window and display the starting scene
+ */
 public class Main extends Application {
     private static Stage stage;
     @Override

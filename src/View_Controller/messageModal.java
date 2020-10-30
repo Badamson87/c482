@@ -8,7 +8,15 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+
+/**
+ * This class creates a new modal to display a message. It does this through the dispaly() function
+ */
 public class messageModal {
+    /**
+     * @param title Displayed as the title of a new modal window
+     * @param message Displayed as the message in a new modal window
+     */
     public static void display(String title, String message) {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);

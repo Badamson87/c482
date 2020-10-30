@@ -1,8 +1,21 @@
 package Model;
 
+/**
+ * this class extends and creates a new outsource part
+ */
 public class Outsourced extends Part{
     private String companyName;
 
+    /**
+     *
+     * @param id Sets the part Id
+     * @param name Sets the part Name
+     * @param price Sets the Part Price
+     * @param stock Sets the part stock
+     * @param min sets the part min
+     * @param max sets the part max
+     * @param companyName sets the company name
+     */
     public Outsourced(int id, String name, double price, int stock, int min, int max, String companyName) {
         super(id, name, price, stock, min, max);
         this.companyName = companyName;
@@ -25,10 +38,16 @@ public class Outsourced extends Part{
     }
 
     /**
-     *checks that part is valid and returns Error message in case its not
+     *  Validates a outsource part
+     * @param name is checked as valid
+     * @param price is checked as valid
+     * @param stock is checked as valid
+     * @param min is checked as valid
+     * @param max is checked as valid
+     * @param companyName is checked as valid
+     * @return if part is valid or not
      */
     public static String validateOutsource(String name, String price, String stock, String min, String max, String companyName){
-        System.out.println(name);
         if (name == null || name.length() == 0){
             return "Name field can not be empty";
         }

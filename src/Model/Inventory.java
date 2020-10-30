@@ -3,10 +3,16 @@ package Model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+/**
+ * this class handles inventory and manages the observable lists for parts and product
+ */
 public class Inventory {
     private static ObservableList<Part> allParts = FXCollections.observableArrayList();
     private static ObservableList<Product> allProducts = FXCollections.observableArrayList();
 
+    /**
+     * Inventory constructor
+     */
     public Inventory() {
     }
 
@@ -26,7 +32,7 @@ public class Inventory {
     }
 
     /**
-     * @param partID
+     * @param partID return parts based on part id
      * @return part by ID
      */
     public static ObservableList<Part> lookUpPart(int partID) {
@@ -43,7 +49,7 @@ public class Inventory {
     }
 
     /**
-     * @param partName
+     * @param partName return parts based on partName
      * @return part by part name
      */
     public static ObservableList<Part> lookUpPart(String partName) {
@@ -59,7 +65,7 @@ public class Inventory {
     }
 
     /**
-     * @param productName
+     * @param productName return products based on product name
      * @return Product by Name
      */
     public static ObservableList<Product> lookUpProduct(String productName) {
@@ -75,7 +81,7 @@ public class Inventory {
     }
 
     /**
-     * @param ProductId
+     * @param ProductId return product based on product id
      * @return Product filtered list by ID
      */
     public static ObservableList<Product> lookUpProduct(Integer ProductId) {
@@ -113,7 +119,7 @@ public class Inventory {
 
     /**
      *
-     * @param selectedPart
+     * @param selectedPart is removed from part list
      * @return successful deletion of part
      */
     public static boolean deletePart(Part selectedPart) {
@@ -123,7 +129,7 @@ public class Inventory {
 
     /**
      *
-     * @param selectedProduct
+     * @param selectedProduct is removed from product list
      * @return successful deletion of product
      */
     public static boolean deleteProduct(Product selectedProduct) {

@@ -15,6 +15,9 @@ import javafx.scene.control.TextField;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * This class helps with the modification of an existing product
+ */
 public class ModifyProduct implements Initializable {
     @FXML
     TextField idInput;

@@ -13,6 +13,9 @@ import javafx.scene.control.TextField;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * This class helps with the modification of an existing part
+ */
 public class ModifyPart implements Initializable {
     @FXML
     Label machineTag;
@@ -67,7 +70,6 @@ public class ModifyPart implements Initializable {
     }
 
     /**
-     *
      * @param selectedPart is set and determines the instance of part
      */
     private void setPart(Part selectedPart){

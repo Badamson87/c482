@@ -17,6 +17,9 @@ import javafx.scene.control.TextField;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * This class helps with the creation of a new product
+ */
 public class AddProduct implements Initializable {
     @FXML
     TextField invInput;
@@ -196,7 +199,6 @@ public class AddProduct implements Initializable {
     }
 
     /**
-     *
      * @param str is checked to be Numeric
      * @return returns is numeric
      */
