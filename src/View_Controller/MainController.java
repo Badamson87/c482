@@ -126,17 +126,21 @@ public class MainController implements Initializable {
             Parent addScene = FXMLLoader.load(getClass().getResource("addPart.fxml"));
             addPartStage.setScene(new Scene(addScene, 600, 500));
             addPartStage.show();
+            partsTable.setItems(Inventory.getAllParts());
+            partSearch.setText("");
             } catch (Exception ex) {
             messageModal.display("Something went wrong", "Unable to display Add part");
         }
     }
 
     /**
+     * update parts pane and closes add part
      * Closes the add part stage
      */
     public static void closeAddPartStage(){
         addPartStage.close();
     }
+
 
     /**
      * Closes the modify part stage
@@ -171,6 +175,8 @@ public class MainController implements Initializable {
         window.setScene(new Scene(addScene, 800, 500));
         addProductStage = window;
         window.show();
+        productsTable.setItems(Inventory.getAllProducts());
+        productSearch.setText("");
         } catch (Exception ex) {
             messageModal.display("Something went wrong", "Unable to display add Product");
         }
@@ -278,6 +284,9 @@ public class MainController implements Initializable {
             filteredList = Inventory.lookUpPart(partSearch.getText());
         }
         partsTable.setItems(filteredList);
+        if (filteredList.isEmpty()){
+            messageModal.display("Unable to find part", "No parts where found that match provided criteria");
+        }
     }
 
     /**
@@ -324,6 +333,9 @@ public class MainController implements Initializable {
             filteredList = Inventory.lookUpProduct(productSearch.getText());
         }
         productsTable.setItems(filteredList);
+        if (filteredList.isEmpty()){
+            messageModal.display("Unable to find Product", "No products where found that match provided criteria");
+        }
     }
 
     /**

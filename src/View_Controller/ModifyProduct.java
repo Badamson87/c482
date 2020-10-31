@@ -74,6 +74,9 @@ public class ModifyProduct implements Initializable {
             filteredList = Inventory.lookUpPart(partSearch.getText());
         }
         partsTable.setItems(filteredList);
+        if (filteredList.isEmpty()){
+            messageModal.display("Unable to find part", "No parts where found that match provided criteria");
+        }
     }
 
     /**

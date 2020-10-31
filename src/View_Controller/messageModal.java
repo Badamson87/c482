@@ -21,7 +21,7 @@ public class messageModal {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle(title);
-        window.setWidth(300);
+        window.setWidth(400);
         Label label = new Label(message);
         Button dismiss = new Button("Dismiss");
 

@@ -37,6 +37,7 @@ public class AddPart implements Initializable {
 
 
 
+
     /**
      * Sets machine tag and input visible for In-house view
      * Hides companyName tag and input for In-house view
